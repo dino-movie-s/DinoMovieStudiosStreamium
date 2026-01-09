@@ -5,14 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Streamium | Dino Movie Studios</title>
     
-    <meta name="description" content="Official streaming platform for The Legendary Pentagram: Cretaceous Period. Experience the prehistoric epic.">
+    <link rel="icon" type="image/png" href="images/favicon.png?v=3">
     
     <style>
-        /* General Styling - Streamium Dark Theme */
         :root {
             --primary-red: #e50914;
             --dark-bg: #141414;
-            --card-bg: #2f2f2f;
+            --header-black: #000000;
             --text-main: #ffffff;
             --text-dim: #b3b3b3;
         }
@@ -29,35 +28,39 @@
             overflow-x: hidden;
         }
 
-        .container {
-            width: 90%;
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px 0;
-        }
-
-        /* Navigation */
+        /* Navigation - Netflix Style */
         header {
             background: linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
-            padding: 15px 0;
+            padding: 10px 0;
             position: fixed;
             width: 100%;
             top: 0;
             z-index: 1000;
-            transition: background 0.3s;
+            transition: 0.4s ease;
         }
 
-        header .container {
+        header.scrolled {
+            background: var(--header-black);
+            padding: 5px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+
+        .container {
+            width: 92%;
+            max-width: 1400px;
+            margin: 0 auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
         .logo img {
-            height: 50px;
+            height: 50px; /* حجم اللوجو بتاعك */
             width: auto;
-            transition: transform 0.3s;
+            display: block;
+            transition: transform 0.3s ease;
         }
+        
         .logo img:hover { transform: scale(1.05); }
 
         nav ul {
@@ -67,28 +70,28 @@
             display: flex;
         }
 
-        nav ul li { margin-left: 25px; }
+        nav ul li { margin-left: 20px; }
 
         nav ul li a {
             color: var(--text-main);
             text-decoration: none;
             font-weight: 500;
-            font-size: 0.9em;
+            font-size: 0.85em;
             text-transform: uppercase;
             letter-spacing: 1px;
+            transition: 0.3s;
         }
 
         nav ul li a:hover { color: var(--primary-red); }
 
-        /* Hero Section - The Big Screen */
+        /* Hero Section */
         .hero {
-            height: 90vh;
+            height: 85vh;
             background-size: cover;
             background-position: center;
             display: flex;
             align-items: center;
             position: relative;
-            padding-top: 60px;
         }
 
         .hero::after {
@@ -97,133 +100,112 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 200px;
+            height: 150px;
             background: linear-gradient(to top, var(--dark-bg), transparent);
         }
 
         .hero-content {
             position: relative;
             z-index: 10;
-            max-width: 600px;
-            padding-left: 5%;
+            max-width: 700px;
+            padding-left: 4%;
         }
 
         .hero-content h1 {
-            font-size: 4em;
-            margin-bottom: 10px;
-            font-weight: bold;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.8);
+            font-size: 4.5em;
+            margin: 0;
+            font-weight: 900;
+            letter-spacing: -2px;
+            text-shadow: 0 0 20px rgba(0,0,0,0.5);
         }
 
         .hero-content p {
-            font-size: 1.2em;
-            margin-bottom: 25px;
-            color: #e5e5e5;
-            text-shadow: 1px 1px 5px rgba(0,0,0,0.8);
+            font-size: 1.3em;
+            margin: 15px 0 30px 0;
+            color: #efefef;
+            text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
         }
 
         .btn {
             display: inline-block;
             background-color: var(--primary-red);
             color: #fff;
-            padding: 12px 30px;
+            padding: 12px 35px;
             border-radius: 4px;
             text-decoration: none;
             font-weight: bold;
             font-size: 1.1em;
-            transition: 0.3s;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+            transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         .btn:hover {
-            background-color: #ff0a16;
-            transform: scale(1.05);
+            background-color: #ff1e29;
+            transform: scale(1.08);
+            box-shadow: 0 0 20px rgba(229, 9, 20, 0.4);
         }
 
-        /* Vision Section */
-        #vision {
-            padding: 100px 0;
-            text-align: center;
-        }
-
-        #vision h2 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: var(--primary-red);
-        }
-
-        #vision p {
-            max-width: 800px;
-            margin: 0 auto;
-            font-size: 1.2em;
-            color: var(--text-dim);
-        }
-
-        /* Streaming Content Cards */
-        #work { padding: 60px 0; }
-        
+        /* Card System */
         .section-title {
-            font-size: 1.8em;
-            margin-bottom: 30px;
-            padding-left: 5%;
+            font-size: 1.5em;
+            padding: 40px 4% 20px 4%;
+            margin: 0;
+            font-weight: bold;
+        }
+
+        .content-row {
+            padding: 0 4% 60px 4%;
         }
 
         .project-card {
+            width: 100%;
+            max-width: 350px;
             background: #181818;
-            border-radius: 8px;
+            border-radius: 4px;
             overflow: hidden;
-            transition: 0.4s;
-            max-width: 450px;
-            margin: 0 auto;
-            border: 1px solid #333;
+            transition: 0.4s ease;
+            cursor: pointer;
+            border: 1px solid #222;
         }
 
         .project-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--primary-red);
+            transform: scale(1.05);
+            z-index: 20;
+            border-color: #444;
         }
 
         .project-card img {
             width: 100%;
-            display: block;
+            aspect-ratio: 16/9;
+            object-fit: cover;
         }
 
-        .card-body { padding: 25px; }
-
-        .card-body h3 { margin: 0 0 10px 0; color: #fff; }
-        
-        .card-body p {
-            color: var(--text-dim);
-            font-size: 0.95em;
-            margin-bottom: 20px;
-        }
+        .card-info { padding: 15px; }
+        .card-info h3 { margin: 0; font-size: 1.1em; }
+        .card-info p { color: var(--text-dim); font-size: 0.85em; margin: 10px 0; }
 
         /* Footer */
         footer {
-            padding: 50px 0;
-            background-color: #000;
+            padding: 60px 0;
+            border-top: 2px solid #222;
+            background: #000;
             text-align: center;
-            color: #808080;
-            font-size: 0.9em;
+            color: #666;
+            font-size: 0.8em;
         }
 
-        .social-links { margin-top: 20px; }
-        .social-links a {
-            color: #fff;
-            margin: 0 15px;
-            font-size: 1.2em;
-        }
+        .social-links { margin-bottom: 15px; }
+        .social-links a { color: #888; margin: 0 10px; text-decoration: none; font-size: 1.2em; }
+        .social-links a:hover { color: #fff; }
 
-        /* Responsive */
         @media (max-width: 768px) {
-            .hero-content h1 { font-size: 2.5em; }
-            nav ul { display: none; } /* ممكن تضيف منيو موبايل لاحقاً */
+            .hero-content h1 { font-size: 2.8em; }
+            nav { display: none; }
         }
     </style>
 </head>
 <body>
 
-    <header id="main-header">
+    <header id="navbar">
         <div class="container">
             <a href="#home" class="logo">
                 <img src="images/dino-logo.png" alt="Dino Movie Studios">
@@ -231,58 +213,55 @@
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
-                    <li><a href="#vision">Vision</a></li>
-                    <li><a href="#work">Series</a></li>
+                    <li><a href="#work">Originals</a></li>
+                    <li><a href="#vision">Studio</a></li>
                 </ul>
             </nav>
         </div>
     </header>
 
     <main>
-        <section id="home" class="hero" style="background-image: linear-gradient(to right, rgba(0,0,0,0.8) 30%, rgba(0,0,0,0)), url('images/hero-bg.jpg');">
+        <section id="home" class="hero" style="background-image: linear-gradient(to right, rgba(0,0,0,0.9) 20%, rgba(0,0,0,0.2) 100%), url('images/hero-bg.jpg');">
             <div class="hero-content">
-                <h1>Dino Movie Studios</h1>
-                <p>Experience the "Legendary Pentagram" - Egypt's first silent prehistoric epic. Visual storytelling like you've never seen before.</p>
-                <a href="#work" class="btn">► Start Watching</a>
+                <h1>The Legendary Pentagram</h1>
+                <p>The first Egyptian silent epic. Survive the late Cretaceous period in an immersive 4K experience.</p>
+                <a href="https://www.youtube.com/watch?v=7jtr0nLtako" target="_blank" class="btn">► Play Now</a>
             </div>
         </section>
 
-        <section id="vision" class="container">
-            <h2>Our Vision</h2>
-            <p>We are pioneers of atmospheric visual storytelling. No dialogue. No barriers. Just the raw emotion of the Cretaceous era, crafted by filmmaker Malek Mohamed.</p>
-        </section>
-
-        <section id="work">
-            <h2 class="section-title">Original Series</h2>
+        <h2 class="section-title">Original Series</h2>
+        <div class="content-row">
             <div class="project-card">
-                <img src="images/pentagram-poster.jpg" alt="The Legendary Pentagram Poster">
-                <div class="card-body">
-                    <h3>The Legendary Pentagram</h3>
-                    <p>A survival journey of five dinosaur factions in the late Cretaceous. Independent Egyptian Animation.</p>
-                    <a href="https://www.youtube.com/watch?v=7jtr0nLtako" target="_blank" class="btn">Watch Latest Episode</a>
+                <img src="images/pentagram-poster.jpg" alt="Cretaceous Period">
+                <div class="card-info">
+                    <h3>The Legendary Pentagram: Cretaceous Period</h3>
+                    <p>Independent Animation | No Dialogue | Atmospheric</p>
+                    <a href="https://www.youtube.com/watch?v=7jtr0nLtako" target="_blank" style="color: var(--primary-red); font-weight: bold; font-size: 0.9em;">Watch Trailer</a>
                 </div>
             </div>
+        </div>
+
+        <section id="vision" style="padding: 100px 4%; background: #000;">
+            <h2 style="color: var(--primary-red);">Our Vision</h2>
+            <p style="font-size: 1.2em; color: #ccc; max-width: 800px;">Dino Movie Studios is the home of pure visual storytelling. No language barriers, just the raw power of animation. Founded by Malek Mohamed.</p>
         </section>
     </main>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2026 Dino Movie Studios | Streamium Platform</p>
-            <div class="social-links">
-                <a href="https://www.youtube.com/@DinoMovieStudios" target="_blank">YouTube</a>
-                <a href="#">Official Wiki</a>
-            </div>
+        <div class="social-links">
+            <a href="https://www.youtube.com/@DinoMovieStudios" target="_blank">YouTube</a>
         </div>
+        <p>&copy; 2026 Dino Movie Studios | Streamium Platform</p>
     </footer>
 
     <script>
-        // تغيير لون الهيدر عند السكرول زي نتفليكس
+        // حركة الهيدر لما تنزل بالصفحة
         window.onscroll = function() {
-            var header = document.getElementById("main-header");
+            var navbar = document.getElementById("navbar");
             if (window.pageYOffset > 50) {
-                header.style.background = "#000";
+                navbar.classList.add("scrolled");
             } else {
-                header.style.background = "linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%)";
+                navbar.classList.remove("scrolled");
             }
         };
     </script>
