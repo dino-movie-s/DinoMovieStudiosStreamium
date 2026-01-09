@@ -8,10 +8,9 @@
     <style>
         :root {
             --n-red: #e50914;
-            --p-blue: #1a98ff;
-            --d-blue: #02d6e8;
+            --imdb-yellow: #f5c518;
+            --tmdb-blue: #01b4e4;
             --bg: #050505;
-            --card-bg: #1a1a1a;
             --text: #ffffff;
             --text-muted: #a3a3a3;
         }
@@ -22,109 +21,104 @@
             overflow-x: hidden;
         }
 
-        /* Navbar - Glassmorphism Style */
+        /* Navbar */
         header {
             background: linear-gradient(to bottom, rgba(0,0,0,0.9), transparent);
             padding: 15px 5%; position: fixed; width: 100%; top: 0; z-index: 1000;
             display: flex; justify-content: space-between; align-items: center; box-sizing: border-box;
-            transition: 0.5s;
         }
-        header.scrolled { background: #000; padding: 10px 5%; }
         .logo img { height: 45px; cursor: pointer; }
-        nav a { color: #e5e5e5; text-decoration: none; margin-left: 25px; font-size: 0.9em; font-weight: 500; transition: 0.3s; }
-        nav a:hover { color: var(--n-red); }
+        nav a { color: #e5e5e5; text-decoration: none; margin-left: 25px; font-size: 0.9em; font-weight: 500; }
 
-        /* HERO SECTION - Prime Video Style */
+        /* Hero */
         .hero {
-            height: 85vh; width: 100%; background: linear-gradient(to right, #050505 10%, transparent 60%), url('images/hero-bg.jpg');
+            height: 80vh; width: 100%; background: linear-gradient(to right, #050505 10%, transparent 60%), url('images/hero-bg.jpg');
             background-size: cover; background-position: top center; display: flex; align-items: center; padding: 0 5%; box-sizing: border-box;
         }
-        .hero-content { max-width: 600px; }
-        .hero-content h1 { font-size: 4.5em; margin: 0; font-weight: 800; letter-spacing: -1px; }
-        .badge { display: inline-block; background: rgba(255,255,255,0.1); padding: 5px 12px; border-radius: 4px; font-size: 0.8em; margin-bottom: 15px; border-left: 3px solid var(--n-red); }
+        .hero-content h1 { font-size: 4.5em; margin: 0; font-weight: 800; }
 
-        /* GRID - Disney+ Style */
+        /* Grid */
         .section-wrap { padding: 40px 5%; }
-        .section-title { font-size: 1.4em; margin-bottom: 20px; color: #e5e5e5; font-weight: 600; }
         .content-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 20px; }
         .poster-box { 
-            position: relative; border-radius: 8px; overflow: hidden; transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            cursor: pointer; border: 2px solid transparent;
+            border-radius: 8px; overflow: hidden; transition: 0.4s; cursor: pointer;
         }
-        .poster-box:hover { transform: scale(1.08); border-color: rgba(255,255,255,0.5); box-shadow: 0 10px 20px rgba(0,0,0,0.8); }
+        .poster-box:hover { transform: scale(1.08); box-shadow: 0 10px 20px rgba(0,0,0,0.8); }
         .poster-box img { width: 100%; aspect-ratio: 2/3; object-fit: cover; }
 
-        /* DETAILS PAGE - Full Mix (The Masterpiece) */
+        /* Details Overlay */
         #details-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--bg);
             z-index: 2000; display: none; overflow-y: auto; animation: fadeIn 0.4s;
         }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         
         .details-hero {
-            height: 70vh; width: 100%; background-size: cover; background-position: center;
-            position: relative; display: flex; align-items: flex-end; padding: 0 5% 50px; box-sizing: border-box;
+            height: 60vh; width: 100%; background-size: cover; background-position: center;
+            position: relative;
         }
         .details-hero::before { content: ''; position: absolute; top:0; left:0; width:100%; height:100%; background: linear-gradient(0deg, var(--bg) 5%, transparent 100%); }
-        .close-overlay { position: fixed; top: 30px; right: 5%; font-size: 2.5em; cursor: pointer; z-index: 2200; text-shadow: 0 0 10px #000; }
+        .close-overlay { position: fixed; top: 30px; right: 5%; font-size: 2.5em; cursor: pointer; z-index: 2200; }
 
-        .main-info { position: relative; z-index: 10; display: flex; gap: 40px; margin-top: -100px; padding: 0 5%; }
-        .side-poster { width: 280px; flex-shrink: 0; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.9); display: block; }
-        .text-side { flex-grow: 1; }
-        .text-side h2 { font-size: 4em; margin: 0; font-weight: 800; }
-        .stats { margin: 15px 0; display: flex; gap: 20px; color: var(--text-muted); font-size: 0.9em; align-items: center; }
-        .rating { color: #46d369; font-weight: bold; border: 1px solid #46d369; padding: 2px 8px; border-radius: 3px; }
+        .main-info { position: relative; z-index: 10; display: flex; gap: 40px; margin-top: -120px; padding: 0 5%; }
+        .side-poster { width: 280px; flex-shrink: 0; border-radius: 12px; box-shadow: 0 10px 40px rgba(0,0,0,0.9); }
+        .text-side h2 { font-size: 4em; margin: 0; }
+
+        /* IMDb & TMDB Styles */
+        .ratings-row { display: flex; gap: 15px; margin: 20px 0; align-items: center; }
+        .external-link { text-decoration: none; display: flex; align-items: center; transition: 0.3s; }
+        .external-link:hover { opacity: 0.8; transform: translateY(-2px); }
         
+        .imdb-tag {
+            background: var(--imdb-yellow); color: #000; font-weight: 900;
+            padding: 3px 8px; border-radius: 5px; font-size: 0.85em; display: inline-block;
+        }
+        .tmdb-tag {
+            background: linear-gradient(45deg, #90cea1, #01b4e4); color: white;
+            padding: 3px 8px; border-radius: 5px; font-size: 0.85em; font-weight: bold;
+        }
+
         .description { font-size: 1.1em; line-height: 1.7; color: #d2d2d2; max-width: 800px; }
 
-        /* JustWatch "Where to Watch" Section */
+        /* Watch Box */
         .provider-box {
-            background: rgba(255,255,255,0.05); padding: 25px; border-radius: 12px; margin-top: 30px;
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.05); padding: 25px; border-radius: 12px; margin-top: 30px; border: 1px solid rgba(255,255,255,0.1);
         }
         .watch-btn {
             background: white; color: black; padding: 15px 40px; border-radius: 8px; 
-            text-decoration: none; font-weight: bold; display: inline-block; font-size: 1.1em; transition: 0.3s;
+            text-decoration: none; font-weight: bold; display: inline-block;
         }
-        .watch-btn:hover { background: var(--n-red); color: white; }
 
-        /* EPISODES SECTION - Netflix Style */
+        /* Episodes */
         .episodes-sec { padding: 50px 5%; }
         .episode-row {
-            display: flex; padding: 20px; border-bottom: 1px solid #333; gap: 25px; align-items: center;
-            transition: 0.3s; cursor: pointer; border-radius: 8px;
+            display: flex; padding: 20px; border-bottom: 1px solid #333; gap: 25px; align-items: center; cursor: pointer; transition: 0.3s;
         }
         .episode-row:hover { background: #222; }
-        .ep-img { width: 220px; aspect-ratio: 16/9; background: #333; border-radius: 6px; position: relative; flex-shrink: 0; }
-        .ep-img img { width: 100%; height: 100%; object-fit: cover; border-radius: 6px; }
-        .ep-info h4 { margin: 0 0 10px 0; font-size: 1.1em; }
-        .ep-info p { margin: 0; color: var(--text-muted); font-size: 0.9em; }
+        .ep-img { width: 220px; aspect-ratio: 16/9; border-radius: 6px; overflow: hidden; }
+        .ep-img img { width: 100%; height: 100%; object-fit: cover; }
 
         @media (max-width: 900px) {
-            .main-info { flex-direction: column; margin-top: -50px; align-items: center; text-align: center; }
+            .main-info { flex-direction: column; margin-top: -50px; text-align: center; align-items: center; }
             .side-poster { width: 200px; }
             .text-side h2 { font-size: 2.5em; }
-            .ep-img { width: 150px; }
         }
     </style>
 </head>
 <body>
 
-    <header id="main-nav">
+    <header>
         <div class="logo"><img src="images/dino-logo.png" onclick="location.reload()" alt="Streamium"></div>
         <nav>
             <a href="#home">Home</a>
             <a href="#originals">Originals</a>
-            <a href="#about">Our Studio</a>
         </nav>
     </header>
 
     <div id="main-ui">
         <section id="home" class="hero">
             <div class="hero-content">
-                <span class="badge">DINO STUDIOS ORIGINAL</span>
-                <h1>The Legendary Pentagram</h1>
-                <p style="font-size: 1.2em; color: #ddd; margin: 20px 0;">Experience the world's first silent Egyptian animation epic. A journey through the Cretaceous era.</p>
+                <h1 style="color: #fff; text-shadow: 0 0 30px rgba(0,0,0,0.8);">The Legendary Pentagram</h1>
             </div>
         </section>
 
@@ -133,10 +127,6 @@
             <div class="content-grid">
                 <div class="poster-box" onclick="showSeries()">
                     <img src="images/pentagram-poster.jpg" alt="Pentagram">
-                    <div style="padding: 10px;">
-                        <div style="font-size: 0.9em; font-weight: bold;">The Legendary Pentagram</div>
-                        <div style="font-size: 0.8em; color: var(--text-muted);">Season 1 • 2026</div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -144,71 +134,53 @@
 
     <div id="details-overlay">
         <span class="close-overlay" onclick="hideSeries()">&times;</span>
-        
         <div class="details-hero" style="background-image: url('images/hero-bg.jpg');"></div>
         
         <div class="main-info">
-            <img src="images/pentagram-poster.jpg" class="side-poster" alt="Poster">
+            <img src="images/pentagram-poster.jpg" class="side-poster">
             <div class="text-side">
                 <h2>The Legendary Pentagram</h2>
-                <div class="stats">
-                    <span class="rating">98% Match</span>
-                    <span>2026</span>
-                    <span>1 Season</span>
-                    <span style="border: 1px solid #555; padding: 0 4px; font-size: 0.8em;">4K Ultra HD</span>
+                
+                <div class="ratings-row">
+                    <a href="https://www.imdb.com/title/your-id-here" target="_blank" class="external-link">
+                        <span class="imdb-tag">IMDb</span>
+                        <span style="margin-left: 8px; font-weight: bold;">8.9</span>
+                    </a>
+                    <a href="https://www.themoviedb.org/movie/your-id-here" target="_blank" class="external-link">
+                        <span class="tmdb-tag">TMDB</span>
+                        <span style="margin-left: 8px; font-weight: bold;">92%</span>
+                    </a>
+                    <span style="color: #666;">|</span>
+                    <span style="color: var(--text-muted);">2026 • 1 Season</span>
                 </div>
+
                 <p class="description">
-                    In a world before words, survival was the only language. Dive into the breathtaking landscapes of Ancient Egypt during the Cretaceous period. Follow the 'Pentagram' - a group of legendary creatures in a silent battle for existence.
+                    In a world before words, survival was the only language. Follow the 'Pentagram' in a silent Egyptian animation epic that explores the raw power of the prehistoric world.
                 </p>
 
                 <div class="provider-box">
-                    <div style="margin-bottom: 15px; font-size: 0.8em; color: var(--p-blue); font-weight: bold; letter-spacing: 1px;">STREAMING NOW</div>
                     <a href="https://www.youtube.com/watch?v=7jtr0nLtako" target="_blank" class="watch-btn">▶ Watch Prologue</a>
                 </div>
             </div>
         </div>
 
         <div class="episodes-sec">
-            <h3 style="border-bottom: 2px solid var(--n-red); display: inline-block; padding-bottom: 10px;">Episodes</h3>
-            
+            <h3>Episodes</h3>
             <div class="episode-row" onclick="window.open('https://www.youtube.com/watch?v=7jtr0nLtako')">
-                <div class="ep-img">
-                    <img src="images/hero-bg.jpg" alt="Ep 1">
-                    <div style="position: absolute; bottom: 5px; right: 5px; background: rgba(0,0,0,0.8); padding: 2px 5px; font-size: 0.7em;">2:15</div>
-                </div>
+                <div class="ep-img"><img src="images/hero-bg.jpg"></div>
                 <div class="ep-info">
-                    <h4>1. The Prologue: Awakening</h4>
-                    <p>The first glimpse into the prehistoric silence. The journey of the Pentagram begins as the sun rises over the ancient Cretaceous plains.</p>
+                    <h4>1. Awakening</h4>
+                    <p>The journey begins in the ancient Cretaceous plains.</p>
                 </div>
-            </div>
-
-            <div style="padding: 40px; text-align: center; color: var(--text-muted);">
-                <p>More episodes coming soon...</p>
             </div>
         </div>
     </div>
 
-    <footer id="about">
-        <div style="padding: 60px 5%; text-align: center; background: #000; border-top: 1px solid #1a1a1a;">
-            <img src="images/dino-logo.png" style="height: 30px; opacity: 0.5; margin-bottom: 20px;" alt="">
-            <p style="color: #666; font-size: 0.9em;">&copy; 2026 Dino Movie Studios. All Rights Reserved. <br> Created by Malek Mohamed.</p>
-        </div>
-    </footer>
-
     <script>
-        // Navbar scroll effect
-        window.onscroll = function() {
-            let nav = document.getElementById('main-nav');
-            if (window.pageYOffset > 50) nav.classList.add('scrolled');
-            else nav.classList.remove('scrolled');
-        };
-
-        // Open/Close Animation
         function showSeries() {
             document.getElementById('details-overlay').style.display = 'block';
             document.body.style.overflow = 'hidden';
         }
-
         function hideSeries() {
             document.getElementById('details-overlay').style.display = 'none';
             document.body.style.overflow = 'auto';
